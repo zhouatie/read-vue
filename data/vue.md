@@ -68,7 +68,7 @@ Vue.prototype.$watch = function (
 ```
 代码中调用new Watcher的时候，也会同render watcher一样，执行下watcher的get方法，调用`pushTarget`将当前user watcher赋值给Dep.target,get()中`value = this.getter.call(vm, vm)`这个语句会触发该自定义watcher监听的响应式属性的get方法，并将当前的user watcher推入该属性依赖的subs中，所以当user watcher监听的属性set触发后，通知订阅该依赖的watcher去触发update，也就是触发该watch绑定的key对应的handler。然后就是调用popTarget出栈并赋值给Dep.target。
 
-### $mount
+## $mount
 initState初始化工作大致到这里过，接下去会执行$mount开始渲染工作
 $mount主要工作：new了一个渲染Watcher，并将updateCompent作为callback传递进去并执行
 ```javascript
